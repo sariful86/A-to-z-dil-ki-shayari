@@ -1,0 +1,153 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+    text-align: center;
+}
+
+/* Header */
+header {
+    padding: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(5px);
+    position: sticky;
+    top: 0;
+}
+
+/* Description */
+#box2 {
+    padding: 15px;
+    max-width: 600px;
+    margin: auto;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* 🔥 SHAYARI LIST FIX */
+ol {
+    list-style-type: upper-alpha;  /* A B C D */
+    list-style-position: inside;   /* text ke paas */
+    padding: 0;
+    margin: 0;
+}
+
+/* 👉 Sirf ABC ka size bada */
+ol li::marker {
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+}
+
+li {
+    margin: 25px 0;
+    line-height: 1.6;
+    font-size: 20px; /* shayari text */
+}
+
+/* Grid */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Card */
+.card {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 10px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* Image */
+.card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.card img:hover {
+    transform: scale(1.05);
+}
+
+/* Card text */
+.card span {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Feedback */
+textarea {
+    margin-top: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    resize: none;
+}
+
+/* Button */
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ddd;
+}
+
+/* Feedback box wrapper */
+.feedback-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 500px) {
+    header {
+        font-size: 22px;
+    }
+
+    .card span {
+        font-size: 14px;
+    }
+
+    li {
+        font-size: 16px;
+    }
+
+    ol li::marker {
+        font-size: 22px; /* mobile me thoda chota */
+    }
+}
