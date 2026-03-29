@@ -26,6 +26,26 @@ header {
     line-height: 1.5;
 }
 
+
+.search-box{
+text-align:center;
+margin:20px;
+}
+
+#searchInput{
+width:80%;
+max-width:400px;
+padding:12px;
+border-radius:25px;
+border:2px solid #ddd;
+font-size:16px;
+outline:none;
+}
+
+#searchInput:focus{
+border-color:#ff4d6d;
+box-shadow:0 0 5px rgba(255,77,109,0.5);
+}
 /* 🔥 SHAYARI LIST FIX */
 ol {
     list-style-type: upper-alpha;  /* A B C D */
@@ -50,7 +70,8 @@ li {
 /* Grid */
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 180px));
+    justify-content: center;
     gap: 20px;
     padding: 20px;
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,10 +10,11 @@
 <link rel="stylesheet" href="style.css">
 
 </head>
+
 <body>
 
 <header>
-    ❤️ A To Z Dil Ki Shayari ❤️
+❤️ A To Z Dil Ki Shayari ❤️
 </header>
 
 <main>
@@ -28,119 +30,70 @@ Yahan padhiye dil ko chhoo lene wali best trending shayari.
 
 <h3>Trending Shayari</h3>
 
-<pre>
-<h5>
-
 <ol type="A">
 
-<li>Aaj kal log badal jaate hain  
+<li id="s1">
+Aaj kal log badal jaate hain  
 Par yaadein wahi reh jaati hain  
-Dil chup chaap sab seh jaata hai 💔😔</li>
+Dil chup chaap sab seh jaata hai 💔😔
+</li>
 
-<li>Baat itni si hai  
+<button onclick="copyShayari('s1')">Copy Shayari</button>
+<button onclick="shareWhatsApp('s1')">WhatsApp Share</button>
+
+<br><br>
+
+<li id="s2">
+Baat itni si hai  
 Dil kisi aur ka ho gaya  
-Aur hum akela reh gaye 💔🥀</li>
+Aur hum akela reh gaye 💔🥀
+</li>
 
-<li>Chup rehna bhi ek dard hai  
+<button onclick="copyShayari('s2')">Copy Shayari</button>
+<button onclick="shareWhatsApp('s2')">WhatsApp Share</button>
+
+<br><br>
+
+<li id="s3">
+Chup rehna bhi ek dard hai  
 Jo har kisi ko  
-Samajh nahi aata 😔💔</li>
+Samajh nahi aata 😔💔
+</li>
 
-<li>Dil ki baat kehna mushkil  
+<button onclick="copyShayari('s3')">Copy Shayari</button>
+<button onclick="shareWhatsApp('s3')">WhatsApp Share</button>
+
+<br><br>
+
+<li id="s4">
+Dil ki baat kehna mushkil  
 Aur chup rehna  
-Usse bhi zyada mushkil 💔🥀</li>
+Usse bhi zyada mushkil 💔🥀
+</li>
 
-<li>Ek waqt tha  
+<button onclick="copyShayari('s4')">Copy Shayari</button>
+<button onclick="shareWhatsApp('s4')">WhatsApp Share</button>
+
+<br><br>
+
+<li id="s5">
+Ek waqt tha  
 Jab tum sab kuch the  
-Aur aaj kuch bhi nahi 💔😔</li>
+Aur aaj kuch bhi nahi 💔😔
+</li>
 
-<li>Faasle badh gaye  
-Par yaadein  
-Aaj bhi paas hain 💔🥀</li>
-
-<li>Gham chhupa kar muskurana  
-Yahi to  
-Zindagi hai 😔✨</li>
-
-<li>Har koi samajh nahi paata  
-Dil ka dard  
-Sirf mehsoos hota hai 💔😢</li>
-
-<li>Itna bhi mat badlo  
-Ki log  
-Pehchanna bhool jaye 😔🥀</li>
-
-<li>Jisne dil toda  
-Usi ko  
-Yaad karte rehte hain 💔😢</li>
-
-<li>Kabhi kabhi khamoshi  
-Sabse zyada  
-Bolti hai 😔💭</li>
-
-<li>Log milte bahut hain  
-Par dil se  
-Koi nahi milta 💔🥀</li>
-
-<li>Mohabbat bhi ajeeb hai  
-Jise chaho  
-Wahi door ho jaye 💔😔</li>
-
-<li>Na jaane kyun  
-Dil usi ko chaahta hai  
-Jo mil nahi sakta 💔🥀</li>
-
-<li>Oonchi soch rakho  
-Zindagi khud  
-Badal jaayegi 💪✨</li>
-
-<li>Pyaar karo to sachcha  
-Varna  
-Akela rehna achcha 💔😔</li>
-
-<li>Qismat ka khel bhi ajeeb  
-Jo chaha  
-Wahi nahi mila 💔🥀</li>
-
-<li>Raat bhar sochte rahe  
-Kyun itna  
-Dil se chaha 💔🌙</li>
-
-<li>Sab kuch mil jaata hai  
-Par  
-Sachcha pyaar nahi 💔😢</li>
-
-<li>Tu agar saath hota  
-Toh shayad  
-Zindagi alag hoti 💔🥀</li>
-
-<li>Umeed kabhi mat chhodna  
-Zindagi kabhi bhi  
-Badal sakti hai ✨💪</li>
-
-<li>Vaada karna aasaan  
-Nibhana  
-Bahut mushkil 💔😔</li>
-
-<li>Waqt sab sikha deta hai  
-Kaun apna  
-Kaun paraya 💔🥀</li>
-
-<li>Xtra dard tab hota  
-Jab apna hi  
-Paraya ban jaye 💔😢</li>
-
-<li>Yaadein kabhi purani nahi hoti  
-Bas  
-Dil aur dukhta hai 💔🥀</li>
-
-<li>Zindagi ek safar hai  
-Har mod par  
-Nayi kahani hai ✨💭</li>
+<button onclick="copyShayari('s5')">Copy Shayari</button>
+<button onclick="shareWhatsApp('s5')">WhatsApp Share</button>
 
 </ol>
 
-</h5>
-</pre>
+<br>
+
+<h4>Audio Shayari</h4>
+
+<audio controls>
+<source src="shayari.mp3" type="audio/mpeg">
+</audio>
 
 <div class="pagination">
 
@@ -157,6 +110,8 @@ Nayi kahani hai ✨💭</li>
 <a href="index.html">Back to Home</a>
 
 </main>
+
+<script src="script.js"></script>
 
 </body>
 </html>
