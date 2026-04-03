@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://sariful86.github.io/atozdilkishayari/sitemap.xml
