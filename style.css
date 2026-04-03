@@ -1,0 +1,323 @@
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(to right,#667eea,#764ba2);
+color:white;
+text-align:center;
+}
+
+/* main height fix */
+
+main{
+min-height:80vh;
+}
+
+/* HEADER */
+
+header{
+padding:20px;
+font-size:28px;
+background:rgba(0,0,0,0.3);
+position:relative;
+}
+
+header span{
+position:absolute;
+right:20px;
+cursor:pointer;
+}
+
+/* MENU */
+
+#menuBox{
+display:none;
+position:fixed;
+top:60px;
+right:10px;
+width:220px;
+background:#1e1e1e;
+padding:10px;
+border-radius:10px;
+}
+
+/* SEARCH */
+
+.search-box{
+margin:20px;
+}
+
+#searchInput{
+width:80%;
+max-width:400px;
+padding:12px;
+border-radius:25px;
+border:none;
+}
+
+/* CATEGORY GRID */
+
+.container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+padding:20px;
+}
+
+.card{
+width:180px;
+background:rgba(255,255,255,0.15);
+border-radius:15px;
+overflow:hidden;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card img{
+width:100%;
+}
+
+.card span{
+display:block;
+padding:10px;
+}
+
+/* RANDOM SHAYARI */
+
+.center{
+margin-top:20px;
+}
+
+#randomBox{
+margin-top:15px;
+max-width:300px;
+margin:auto;
+background: transparent;
+color:white;
+padding:20px;
+border-radius:10px;
+}
+
+/* BUTTON */
+
+.btn{
+padding:8px 14px;
+background:#555;
+color:white;
+border-radius:6px;
+text-decoration:none;
+margin:5px;
+display:inline-block;
+}
+
+/* 🔥 SHAYARI CARD */
+
+.shayari-box{
+max-width:600px;
+width:90%;
+margin:20px auto;
+padding:20px;
+border-radius:18px;
+
+background: linear-gradient(135deg, rgba(255,75,110,0.3), rgba(100,115,255,0.3));
+border:1px solid rgba(255,255,255,0.2);
+
+backdrop-filter: blur(10px);
+box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+
+position:relative;
+overflow:hidden;
+
+transition:0.3s;
+}
+
+.shayari-box:hover{
+transform: translateY(-5px);
+}
+
+/* background image overlay */
+
+.shayari-box::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:url("https://images.unsplash.com/photo-1519681393784-d120267933ba") center/cover;
+opacity:0.15;
+z-index:0;
+}
+
+.shayari-box *{
+position:relative;
+z-index:1;
+}
+
+/* SHAYARI TEXT */
+
+.shayari-box div{
+text-align:center;
+line-height:1.8;
+font-size:18px;
+margin-bottom:10px;
+}
+
+/* ABC LETTER */
+
+.shayari-box b{
+display:block;
+font-size:22px;
+color:#ffd700;
+margin-bottom:8px;
+}
+
+/* BUTTONS */
+
+.shayari-box button{
+margin:6px 5px;
+padding:6px 12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* LIKE ANIMATION */
+
+.liked{
+animation: pop 0.3s ease;
+background:red !important;
+}
+
+@keyframes pop{
+0%{transform:scale(1);}
+50%{transform:scale(1.3);}
+100%{transform:scale(1);}
+}
+
+/* LIST GRID */
+
+#list{
+display:block;
+}
+
+@media (min-width:768px){
+#list{
+display:grid;
+grid-template-columns: repeat(2,1fr);
+gap:20px;
+padding:20px;
+}
+}
+
+/* PAGINATION */
+
+.pagination{
+grid-column:1/-1;
+text-align:center;
+margin-top:30px;
+}
+
+/* Feedback */
+.feedback-box{
+
+max-width:500px;
+margin:auto;
+text-align:center;
+
+}
+
+.feedback-box textarea{
+
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:16px;
+
+}
+
+.feedback-box button{
+
+margin-top:10px;
+padding:10px 25px;
+background:#ff4081;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+
+}
+
+.feedback-box button:hover{
+
+background:#e73370;
+
+}
+
+button:hover {
+    background: #ddd;
+}
+
+/* Feedback box wrapper */
+.feedback-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 500px) {
+    header {
+        font-size: 22px;
+    }
+
+    .card span {
+        font-size: 14px;
+    }
+
+    li {
+        font-size: 16px;
+    }
+
+    ol li::marker {
+        font-size: 22px; /* mobile me thoda chota */
+    }
+}
+
+/* Footer Social Media */
+
+.footer{
+text-align:center;
+margin-top:10px;
+padding:5px;
+}
+
+.footer h2{
+margin:5px 0;
+font-size:20px;
+}
+
+.social-icons{
+text-align:center;
+}
+
+.social-icons img{
+width:35px;
+margin:5px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.social-icons img:hover{
+transform:scale(1.15);
+}
+
+.footer p{
+margin:5px 0;
+font-size:14px;
+}

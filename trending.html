@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trending Shayari</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
+
+</head>
+
+<body>
+
+<header>🔥 Trending Shayari</header>
+
+<h2>Top Liked Shayari ❤️</h2>
+
+<div id="list"></div>
+
+<script>
+
+// LOAD TRENDING
+db.collection("likes")
+.orderBy("count","desc")
+.limit(50)
+.onSnapshot(snapshot=>{
+
+let list = document.getElementById("list");
+list.innerHTML = "";
+
+snapshot.forEach(doc=>{
+
+let data = doc.data();
+let id = doc.id;
+
+let div = document.createElement("div");
+div.className = "shayari-box";
+
+div.innerHTML = `
+<b>❤️ ${data.count} Likes</b>
+
+<div>${id.replaceAll("_"," ")}</div>
+`;
+
+list.appendChild(div);
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

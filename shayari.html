@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shayari</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
+
+</head>
+
+<body>
+
+<header>
+❤️ A To Z Dil Ki Shayari ❤️  
+<br><br>
+<a href="index.html" class="btn">🏠 Home</a>
+<a href="trending.html" class="btn">🔥 Trending</a>
+</header>
+
+<!-- RANDOM -->
+<div class="center">
+<button onclick="generateRandomShayari()">✨ Generate Random Shayari</button>
+
+<div id="randomBox">
+<p id="randomText"></p>
+
+<div id="randomSource"></div>
+
+<a id="randomLink" target="_blank" style="display:none;">
+📖 Read Full Page
+</a>
+
+</div>
+</div>
+
+<h2 id="title"></h2>
+
+<div id="list"></div>
+
+<script>
+
+// URL PARAMS
+const params = new URLSearchParams(window.location.search);
+const category = params.get("cat");
+const page = parseInt(params.get("page")) || 1;
+
+const perPage = 26;
+let allShayari = {};
+
+// LOAD DATA
+fetch("data/shayari.json")
+.then(res=>res.json())
+.then(data=>{
+
+allShayari = data;
+
+if(!category || !data[category]){
+document.getElementById("title").innerText = "❌ Category Not Found";
+return;
+}
+
+const list = document.getElementById("list");
+const title = document.getElementById("title");
+
+let formattedCategory = category
+.replace(/%20/g," ")
+.replace(/\b\w/g, l => l.toUpperCase());
+
+title.innerText = formattedCategory;
+
+// Browser tab title
+document.title = formattedCategory + " | A To Z Dil Ki Shayari";
+
+let arr = data[category];
+
+let start = (page-1) * perPage;
+let end = start + perPage;
+
+let pageData = arr.slice(start,end);
+
+list.innerHTML = "";
+
+// 🎨 CATEGORY BACKGROUND MAP
+let bg = {
+love:"https://images.unsplash.com/photo-1518199266791-5375a83190b7",
+sad:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+attitude:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+motivational:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d",
+friendship:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac",
+romantic:"https://images.unsplash.com/photo-1518199266791-5375a83190b7"
+};
+
+// SHOW SHAYARI
+pageData.forEach((text,index)=>{
+
+let realIndex = start + index;
+let id = category+"_"+realIndex;
+let letter = String.fromCharCode(65 + index);
+
+let div = document.createElement("div");
+div.className = "shayari-box";
+
+// 🎨 background set
+div.style.backgroundImage = `url(${bg[category] || bg["love"]})`;
+
+div.innerHTML = `
+<b>${letter}.</b>
+
+<div id="text-${id}">
+${text.replace(/\n/g,"<br>")}
+</div>
+
+<button onclick="like('${id}',this)">
+❤️ <span id="l-${id}">0</span>
+</button>
+
+<button onclick="copyText('${id}')">📋 Copy</button>
+
+<button onclick="shareWhatsApp('${id}')">📲 Share</button>
+
+<button onclick="downloadImage('${id}')">📥 Download</button>
+`;
+
+list.appendChild(div);
+
+loadLike(id);
+saveToTrending(id,text);
+
+});
+
+// PAGINATION
+let totalPages = Math.ceil(arr.length / perPage);
+
+let nav = document.createElement("div");
+nav.className = "pagination";
+
+nav.innerHTML += `<a href="index.html" class="btn">🏠 Home</a>`;
+
+if(page>1){
+nav.innerHTML += `<a href="shayari.html?cat=${category}&page=${page-1}" class="btn">⬅ Prev</a>`;
+}
+
+for(let i=1;i<=totalPages;i++){
+let active = (i===page) ? "background:red;" : "";
+nav.innerHTML += `<a href="shayari.html?cat=${category}&page=${i}" class="btn" style="${active}">${i}</a>`;
+}
+
+if(page<totalPages){
+nav.innerHTML += `<a href="shayari.html?cat=${category}&page=${page+1}" class="btn">Next ➡</a>`;
+}
+
+list.appendChild(nav);
+
+});
+
+// RANDOM
+function generateRandomShayari(){
+
+if(Object.keys(allShayari).length === 0){
+alert("Loading...");
+return;
+}
+
+let categories = Object.keys(allShayari);
+let randomCat = categories[Math.floor(Math.random()*categories.length)];
+
+let arr = allShayari[randomCat];
+let randomIndex = Math.floor(Math.random()*arr.length);
+
+let text = arr[randomIndex];
+
+document.getElementById("randomText").innerText = text;
+
+let pageNum = Math.floor(randomIndex/perPage)+1;
+
+let link = document.getElementById("randomLink");
+
+link.href = "shayari.html?cat="+randomCat+"&page="+pageNum;
+link.innerText = "📖 Source: "+randomCat+" Page "+pageNum;
+link.style.display="block";
+}
+
+// LIKE
+function like(id,btn){
+
+const user = firebase.auth().currentUser;
+const isGuest = localStorage.getItem("guest")==="true";
+
+if(!user && !isGuest){
+window.location="login.html";
+return;
+}
+
+btn.classList.add("liked");
+setTimeout(()=>btn.classList.remove("liked"),300);
+
+const ref = db.collection("likes").doc(id);
+
+ref.get().then(doc=>{
+
+let data = doc.exists ? doc.data() : {};
+let users = data.users || [];
+
+let userId;
+
+if(user){
+userId = user.email;
+}else{
+if(!localStorage.getItem("guest_id")){
+localStorage.setItem("guest_id",Date.now());
+}
+userId="guest_"+localStorage.getItem("guest_id");
+}
+
+if(users.includes(userId)){
+users = users.filter(u=>u!==userId);
+}else{
+users.push(userId);
+}
+
+return ref.set({users:users,count:users.length});
+
+}).then(()=> loadLike(id));
+}
+
+// LOAD LIKE
+function loadLike(id){
+db.collection("likes").doc(id).onSnapshot(doc=>{
+let data = doc.exists ? doc.data() : {count:0};
+document.getElementById("l-"+id).innerText=data.count||0;
+});
+}
+
+// COPY
+function copyText(id){
+let text=document.getElementById("text-"+id).innerText;
+navigator.clipboard.writeText(text);
+alert("Copied ✅");
+}
+
+// SHARE
+function shareWhatsApp(id){
+let text=document.getElementById("text-"+id).innerText;
+window.open("https://wa.me/?text="+encodeURIComponent(text));
+}
+
+// DOWNLOAD IMAGE 🔥
+function downloadImage(id){
+
+let text = document.getElementById("text-"+id).innerText;
+
+let canvas = document.createElement("canvas");
+let ctx = canvas.getContext("2d");
+
+canvas.width = 1080;
+canvas.height = 1080;
+
+ctx.fillStyle = "#111";
+ctx.fillRect(0,0,1080,1080);
+
+ctx.fillStyle = "#fff";
+ctx.font = "30px Arial";
+
+let words = text.split(" ");
+let line = "";
+let y = 200;
+
+words.forEach(word=>{
+let testLine = line + word + " ";
+if(ctx.measureText(testLine).width > 800){
+ctx.fillText(line,140,y);
+line = word + " ";
+y += 50;
+}else{
+line = testLine;
+}
+});
+
+ctx.fillText(line,140,y);
+
+ctx.font = "20px Arial";
+ctx.fillText("@AToZDilkiShayari",350,1000);
+
+let link = document.createElement("a");
+link.download = "shayari.png";
+link.href = canvas.toDataURL();
+link.click();
+}
+
+// TRENDING
+function saveToTrending(id,text){
+db.collection("trending").doc(id).get().then(doc=>{
+if(!doc.exists){
+db.collection("trending").doc(id).set({
+text:text,
+time:Date.now()
+});
+}
+});
+}
+
+</script>
+
+</body>
+</html>

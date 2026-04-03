@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A To Z Dil Ki Shayari | Love, Sad, Attitude & More</title>
+
+<!-- 🔥 SEO META TAGS -->
+<meta name="description" content="Best Hindi Shayari website ❤️ Love, Sad, Attitude, Funny, Romantic Shayari. Copy, Share & Download Shayari easily. Explore trending and viral shayari daily.">
+<meta name="keywords" content="shayari, hindi shayari, love shayari, sad shayari, attitude shayari, funny shayari, romantic shayari, breakup shayari, motivational shayari">
+<meta name="author" content="A To Z Dil Ki Shayari">
+
+<!-- 🔥 OPEN GRAPH (Social Media) -->
+<meta property="og:title" content="A To Z Dil Ki Shayari ❤️">
+<meta property="og:description" content="Dil ki har feeling ke liye perfect shayari ❤️ Copy, Share & Download now!">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/love.jpg">
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
+
+</head>
+
+<body>
+
+<!-- MENU -->
+<div id="menuBox">
+<p id="userStatus">Status: Guest</p>
+<hr>
+<button onclick="login()">🔐 Login</button>
+<button onclick="logout()">🚪 Logout</button>
+<button onclick="enableGuest()">👤 Guest Mode</button>
+</div>
+
+<header>
+
+❤️ A To Z Dil Ki Shayari ❤️
+
+<span onclick="toggleMenu()">☰</span>
+
+</header>
+
+<main>
+
+<!-- 🔥 TAGLINE / HERO DESCRIPTION -->
+<div id="box2">
+<p id = "tagline">
+Yahan har shayari ek viral feeling hai. Social media se inspired trending shayari ka best collection yahan milega.
+</p>
+
+<p id="tagline2">
+Love, Sad, Attitude ya Motivation — har mood ke liye perfect shayari, bio aur story content ready hai.
+</p>
+
+<p id="tagline3">
+Aap easily copy, share aur image download karke apni feelings ko kisi bhi social media par use kar sakte ho.
+</p>
+
+<p id="tagline4">
+Yeh website sabke liye bilkul free hai — bas apni feeling choose karo aur share karo.
+</p>
+</div>
+
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="🔎 Search Shayari Category...">
+</div>
+
+<hr>
+
+<!-- RANDOM -->
+<div class="center">
+<button onclick="generateRandomShayari()">✨ Generate Random Shayari</button>
+
+<div id="randomBox">
+<p id="randomText"></p>
+
+<div id="randomSource"></div>
+
+<a id="randomLink" target="_blank" style="display:none;">
+📖 Read Full Page
+</a>
+
+</div>
+</div>
+
+<h2>🔥 Explore Shayari Categories</h2>
+
+<div class="container">
+
+<div class="card"><a href="shayari.html?cat=Attitude Shayari"><img src="images/attitude.jpg"><span>Attitude Shayari</span></a></div>
+
+<div class="card"><a href="shayari.html?cat=Breakup Shayari"><img src="images/breakup.jpg"><span>Breakup Shayari</span></a></div>
+
+
+<div class="card"><a href="shayari.html?cat=Birthday Shayari"><img src="images/birthday wish.jpg"><span>Birthday Shayari</span></a></div>
+
+<div class="card"><a href="shayari.html?cat=Diologue Shayari"><img src="images/Diologue.jpg"><span>Diologue Shayari</span></a></div>
+
+<div class="card"><a href="shayari.html?cat=Festival Shayari"><img src="images/festival.jpg"><span>Festival Shayari</span></a></div>
+
+<div class="card"><a href="shayari.html?cat=Sad Shayari"><img src="images/sad.jpg"><span>Sad Shayari</span></a></div>
+
+<div class="card"><a href="shayari.html?cat=Funny Shayari"><img src="images/funny.jpg"><span>Funny Shayari</span></a></div>
+
+<div class="card"><a href="shayari.html?cat=Breakup Shayari"><img src="images/breakup.jpg"><span>Breakup Shayari</span></a></div>
+
+<div class="card"><a href="shayari.html?cat=Motivational Shayari"><img src="images/motivational.jpg"><span>Motivational Shayari</span></a></div>
+
+<div class="card"><a href="shayari.html?cat=Friendship Shayari"><img src="images/friendship.jpg"><span>Friendship Shayari</span></a></div>
+
+<div class="card"><a href="shayari.html?cat=Romantic Shayari"><img src="images/Romantic1.jpg"><span>Romantic Shayari</span></a></div>
+
+<div class="card"><a href="shayari.html?cat=Trending Shayari"><img src="images/trending.jpg"><span>Trending Shayari</span></a></div>
+
+</div>
+
+    <hr>
+
+    <!-- Feedback -->
+
+<h2>💬 Feedback</h2>
+
+<p>Your feedback helps us improve our website ❤️</p>
+
+<div class="feedback-box">
+
+<textarea id="feedbackText" placeholder="Write your feedback here..." rows="4"></textarea>
+
+<br><br>
+
+<button onclick="submitFeedback()">Submit Feedback</button>
+
+</div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+
+        <h2>Follow A to Z Dil Ki Shayari</h2>
+        <p>Best Hindi Shayari Collection – Love, Sad, Attitude, Breakup & Motivational Shayari.</p>
+        <p>Contact us: <a href="mailto:atozdilkishayari@gmail.com">atozdilkishayari@gmail.com</a></p>
+
+        <div class="social-icons">
+            <a href="https://www.instagram.com/atozdilkishayari?igsh=aWpsam5ldDcyMHhi" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+
+            <a href="https://www.facebook.com/atozdilkishayari" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+
+            <a href="https://www.youtube.com/yourchannel" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"></a>
+
+            <a href="https://wa.me/918697316520" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+
+        </div>
+
+        <br>
+        <button onclick="shareSite()">📤 Share Website</button>
+        <br><br>
+        <p>© 2026 <strong>A to Z Dil Ki Shayari</strong>. All Rights Reserved.</p>
+        <p style="font-size:13px;opacity:0.8;">All content on this website is for entertainment and sharing purposes. Unauthorized copying or reproduction is not allowed.</p>
+    </footer>
+
+</main>
+
+<script src="script.js" defer></script>
+
+</body>
+</html>

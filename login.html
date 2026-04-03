@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram Style Login</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+<script src="firebase.js"></script>
+
+<style>
+
+/* 🌈 BACKGROUND */
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial;
+    overflow:hidden;
+    background: linear-gradient(135deg,#0f0f0f,#1a1a1a,#0f0f0f);
+    color:white;
+}
+
+/* 🔵 FLOATING SHAPES */
+.bg span{
+    position:absolute;
+    width:80px;
+    height:80px;
+    background:rgba(255,255,255,0.05);
+    border-radius:50%;
+    animation: float 10s infinite;
+}
+
+.bg span:nth-child(1){top:10%; left:20%;}
+.bg span:nth-child(2){top:70%; left:10%;}
+.bg span:nth-child(3){top:40%; left:80%;}
+.bg span:nth-child(4){top:80%; left:70%;}
+
+@keyframes float{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-40px);}
+    100%{transform:translateY(0);}
+}
+
+/* 💎 CARD */
+.card{
+    width:340px;
+    padding:30px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    text-align:center;
+    box-shadow:0 10px 40px rgba(0,0,0,0.6);
+}
+
+/* TITLE */
+h1{
+    margin:0;
+    font-size:24px;
+}
+
+/* TEXT */
+p{
+    font-size:13px;
+    color:#bbb;
+}
+
+/* 🔵 BUTTON */
+button{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    background:white;
+    color:black;
+    transition:0.2s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+/* ICON */
+img{
+    width:20px;
+}
+
+/* GUEST BUTTON */
+.guest{
+    background:transparent;
+    color:white;
+    border:1px solid #555;
+}
+
+/* LOADER */
+.loader{
+    display:none;
+    margin-top:10px;
+    border:3px solid #444;
+    border-top:3px solid white;
+    border-radius:50%;
+    width:20px;
+    height:20px;
+    animation:spin 1s linear infinite;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+@keyframes spin{
+    0%{transform:rotate(0);}
+    100%{transform:rotate(360deg);}
+}
+
+.small{
+    font-size:11px;
+    color:#aaa;
+    margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- floating bg -->
+<div class="bg">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<div class="card">
+
+    <h1>❤️ Shayari App</h1>
+    <p>Login to continue like Instagram</p>
+
+    <!-- GOOGLE LOGIN -->
+    <button onclick="login()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+        Continue with Google
+    </button>
+
+    <!-- GUEST -->
+    <button class="guest" onclick="guest()">
+        👤 Continue as Guest
+    </button>
+
+    <div class="loader" id="loader"></div>
+
+    <div class="small">
+        New users auto account create ho jayega 🚀
+    </div>
+
+</div>
+
+<script>
+
+// 🔥 LOGIN
+function login(){
+
+    document.getElementById("loader").style.display="block";
+
+    let provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().signInWithPopup(provider)
+    .then(res=>{
+
+        document.getElementById("loader").style.display="none";
+
+        alert("Welcome " + res.user.displayName);
+
+        window.location="index.html";
+
+    })
+    .catch(err=>{
+        document.getElementById("loader").style.display="none";
+        alert(err.message);
+    });
+}
+
+// 👤 GUEST MODE
+function guest(){
+
+    alert("Guest mode enabled 👍");
+
+    localStorage.setItem("guest","true");
+
+    window.location="index.html";
+}
+
+// 🔥 AUTO LOGIN
+firebase.auth().onAuthStateChanged(user=>{
+    if(user){
+        window.location="index.html";
+    }
+});
+
+</script>
+
+</body>
+</html>
