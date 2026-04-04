@@ -296,49 +296,62 @@ window.open("https://wa.me/?text="+encodeURIComponent(text));
 }
 
 // DOWNLOAD IMAGE
-function downloadImage(id){
+function downloadImage(id) {
+    let text = document.getElementById("text-" + id).innerText;
 
-let text = document.getElementById("text-"+id).innerText;
+    let canvas = document.createElement("canvas");
+    let ctx = canvas.getContext("2d");
 
-let canvas = document.createElement("canvas");
-let ctx = canvas.getContext("2d");
+    canvas.width = 1080;
+    canvas.height = 1080;
 
-canvas.width = 1080;
-canvas.height = 1080;
+    // Background color
+    ctx.fillStyle = "#111";
+    ctx.fillRect(0, 0, 1080, 1080);
 
-ctx.fillStyle = "#111";
-ctx.fillRect(0,0,1080,1080);
+    // Text style
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 70px 'Segoe UI', sans-serif"; // stylish and bigger font
+    ctx.textAlign = "center"; // horizontal center
+    ctx.textBaseline = "middle"; // vertical center reference
 
-ctx.fillStyle = "#fff";
-ctx.font = "30px Arial";
+    // Split text into lines to wrap
+    let words = text.split(" ");
+    let lines = [];
+    let line = "";
+    let maxWidth = 800;
 
-let words = text.split(" ");
-let line = "";
-let y = 200;
+    words.forEach(word => {
+        let testLine = line + word + " ";
+        if (ctx.measureText(testLine).width > maxWidth) {
+            lines.push(line);
+            line = word + " ";
+        } else {
+            line = testLine;
+        }
+    });
+    lines.push(line);
 
-words.forEach(word=>{
-let testLine = line + word + " ";
-if(ctx.measureText(testLine).width > 800){
-ctx.fillText(line,140,y);
-line = word + " ";
-y += 50;
-}else{
-line = testLine;
+    // Adjusted lineHeight for better spacing
+    let lineHeight = 90; // increased from 60 to 90
+    let totalHeight = lines.length * lineHeight;
+    let y = (canvas.height - totalHeight) / 2 + lineHeight / 2;
+
+    lines.forEach(l => {
+        ctx.fillText(l.trim(), canvas.width / 2, y);
+        y += lineHeight;
+    });
+
+    // Footer text
+    ctx.font = "30px 'Segoe UI', sans-serif";
+    ctx.fillText("@AToZDilkiShayari", canvas.width / 2, canvas.height - 50);
+
+    // Download image
+    let link = document.createElement("a");
+    link.download = "shayari.png";
+    link.href = canvas.toDataURL();
+    link.click();
 }
-});
-
-ctx.fillText(line,140,y);
-
-ctx.font = "20px Arial";
-ctx.fillText("@AToZDilkiShayari",350,1000);
-
-let link = document.createElement("a");
-link.download = "shayari.png";
-link.href = canvas.toDataURL();
-link.click();
-
-}
-
 // TRENDING
 function saveToTrending(id,text){
 db.collection("trending").doc(id).get().then(doc=>{
